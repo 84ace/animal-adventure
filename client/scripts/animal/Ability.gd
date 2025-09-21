@@ -14,3 +14,5 @@ func can_cast(owner: Node) -> bool:
 func cast(owner: Node) -> void:
         # override in derived resources
         pass
+
+# Base class for all abilities.

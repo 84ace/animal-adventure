@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://dajhk1w1twsx1"]
+
+[ext_resource type="Script" path="res://scripts/ui/AbilityWheel.gd" id="1_ability_wheel_script"]
+
+[node name="AbilityWheel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_ability_wheel_script")
+
+[node name="PounceButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -60.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Pounce"

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bgtj0gqtuau6d"]
+[gd_scene load_steps=3 format=3 uid="uid://bgtj0gqtuau6d"]
 
-[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1_1ywhc"]
+[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1_hud_script"]
+[ext_resource type="PackedScene" uid="uid://dajhk1w1twsx1" path="res://scenes/ui/AbilityWheel.tscn" id="2_ability_wheel_scene"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -9,7 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_1ywhc")
+script = ExtResource("1_hud_script")
 
 [node name="Hunger" type="ProgressBar" parent="."]
 layout_mode = 0
@@ -47,3 +48,5 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
+
+[node name="AbilityWheel" parent="." instance=ExtResource("2_ability_wheel_scene")]

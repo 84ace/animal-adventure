@@ -4,9 +4,11 @@ class_name AnimalController
 @export var walk_speed: float = 5.5
 @export var sprint_speed: float = 8.0
 @export var jump_velocity: float = 4.5
+@export var pounce_ability: Ability = preload("res://data/abilities/pounce.tres")
 
 @onready var needs_component: NeedsComponent = $NeedsComponent
 @onready var hud = $CanvasLayer/HUD
+@onready var ability_wheel = $CanvasLayer/HUD/AbilityWheel
 
 signal jumped
 signal sprint_started
@@ -15,16 +17,24 @@ signal sprint_stopped
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var is_sprinting := false
 var can_move := true
+var _cooldowns := {} # ability.id -> end_time_msec
 
 func _ready() -> void:
 	sprint_started.connect(_on_sprint_changed.bind(true))
 	sprint_stopped.connect(_on_sprint_changed.bind(false))
 	needs_component.fainted.connect(_on_fainted)
 	needs_component.recovered.connect(_on_recovered)
+	ability_wheel.ability_requested.connect(_on_ability_requested)
+	ability_wheel.ability = pounce_ability
 
 func _physics_process(delta: float) -> void:
+	# Update UI
 	hud.set_needs(needs_component.hunger, needs_component.energy, needs_component.comfort)
+	var cooldown_remaining = (_cooldowns.get(pounce_ability.id, 0) - Time.get_ticks_msec())
+	var can_cast = needs_component.energy >= pounce_ability.energy_cost and cooldown_remaining <= 0
+	ability_wheel.update_button_state(can_cast)
 
+	# Movement logic
 	var v := velocity
 	if not is_on_floor():
 		v.y -= gravity * delta
@@ -59,9 +69,26 @@ func _on_sprint_changed(sprinting: bool) -> void:
 
 func _on_fainted() -> void:
 	can_move = false
-	is_sprinting = false # Ensure sprint is off after fainting
+	is_sprinting = false
 	sprint_stopped.emit()
 	hud.faint()
 
 func _on_recovered() -> void:
 	can_move = true
+
+func _on_ability_requested(ability: Ability) -> void:
+	if not can_move:
+		return
+
+	var now = Time.get_ticks_msec()
+	var cooldown_end = _cooldowns.get(ability.id, 0)
+	if now < cooldown_end:
+		return # Still on cooldown
+
+	if needs_component.energy < ability.energy_cost:
+		return # Not enough energy
+
+	# Cast successful
+	needs_component.energy -= ability.energy_cost
+	_cooldowns[ability.id] = now + int(ability.cooldown * 1000)
+	ability.cast(self)

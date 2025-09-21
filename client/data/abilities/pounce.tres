@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PounceAbility" load_steps=2]
+
+[ext_resource type="Script" path="res://scripts/animal/abilities/Pounce.gd" id="1_pounce_script"]
+
+[resource]
+script = ExtResource("1_pounce_script")
+id = "pounce"
+cooldown = 5.0
+energy_cost = 20.0
+pounce_strength = 8.0
+pounce_lift = 5.0
