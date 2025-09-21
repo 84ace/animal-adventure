@@ -1,6 +1,4 @@
 extends Node
-
-
 class_name NeedsComponent
 
 
@@ -46,8 +44,8 @@ func _process(delta: float) -> void:
 
 
 func _recover() -> void:
-hunger = max(hunger, 30.0)
-energy = max(energy, 50.0)
-comfort = max(comfort, 50.0)
-fainted_state = false
-recovered.emit()
+	hunger = max(hunger, 30.0)
+	energy = max(energy, 50.0)
+	comfort = max(comfort, 50.0)
+	fainted_state = false
+	recovered.emit()
