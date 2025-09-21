@@ -11,8 +11,7 @@ func can_cast(owner: Node) -> bool:
         return true
 
 
-func cast(owner: Node) -> void:
-        # override in derived resources
-        pass
-
-# Base class for all abilities.
+func cast(owner: Node) -> Vector3:
+	# This method should be overridden by specific ability implementations.
+	# It should return a velocity impulse to be applied to the character.
+	return Vector3.ZERO

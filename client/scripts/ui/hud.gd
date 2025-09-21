@@ -15,5 +15,5 @@ func set_needs(h,e,c):
 
 func faint():
 	var tween = create_tween()
-	tween.tween_property(vignette, "modulate:a", 1.0, 0.5)
-	tween.tween_property(vignette, "modulate:a", 0.0, 2.5).set_delay(0.5)
+	tween.tween_property(vignette, "color:a", 1.0, 0.5)
+	tween.tween_property(vignette, "color:a", 0.0, 2.5).set_delay(0.5)

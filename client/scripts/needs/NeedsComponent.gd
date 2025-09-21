@@ -40,9 +40,9 @@ func _process(delta: float) -> void:
 	comfort = max(0.0, comfort - decay_comfort * delta)
 
 	if hunger <= 0.0 or energy <= 0.0 or comfort <= 0.0:
-fainted_state = true
-fainted.emit()
-get_tree().create_timer(3.0).timeout.connect(_recover)
+		fainted_state = true
+		fainted.emit()
+		get_tree().create_timer(3.0).timeout.connect(_recover)
 
 
 func _recover() -> void:

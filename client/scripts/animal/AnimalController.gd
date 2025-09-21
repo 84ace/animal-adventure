@@ -18,6 +18,7 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var is_sprinting := false
 var can_move := true
 var _cooldowns := {} # ability.id -> end_time_msec
+var _velocity_impulse := Vector3.ZERO
 
 func _ready() -> void:
 	sprint_started.connect(_on_sprint_changed.bind(true))
@@ -61,6 +62,9 @@ func _physics_process(delta: float) -> void:
 			v.y = jump_velocity
 			jumped.emit()
 
+	v += _velocity_impulse
+	_velocity_impulse = Vector3.ZERO
+
 	velocity = v
 	move_and_slide()
 
@@ -91,4 +95,4 @@ func _on_ability_requested(ability: Ability) -> void:
 	# Cast successful
 	needs_component.energy -= ability.energy_cost
 	_cooldowns[ability.id] = now + int(ability.cooldown * 1000)
-	ability.cast(self)
+	_velocity_impulse = ability.cast(self)
