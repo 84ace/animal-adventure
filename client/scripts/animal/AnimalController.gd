@@ -19,7 +19,7 @@ func _physics_process(delta: float) -> void:
 	var r := cam.transform.basis.x
 	var move := (f * dir2.y + r * dir2.x).normalized()
 
-	var speed := is_sprinting ? sprint_speed : walk_speed
+	var speed := sprint_speed if is_sprinting else walk_speed
 	v.x = move.x * speed
 	v.z = move.z * speed
 
