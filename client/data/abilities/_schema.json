@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awa/schemas/animal.json",
+  "type": "object",
+  "required": ["id", "abilities", "diet", "biomes", "move"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+    "abilities": { "type": "array", "items": { "type": "string" } },
+    "diet": {
+      "type": "array",
+      "items": {
+        "enum": ["berries", "plants", "small_prey", "fish", "plankton"]
+      }
+    },
+    "biomes": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "forest",
+          "meadow",
+          "river",
+          "lake",
+          "cliffs",
+          "beach",
+          "reef",
+          "desert",
+          "snow"
+        ]
+      }
+    },
+    "comfort_rules": {
+      "type": "object",
+      "properties": {
+        "shelter_bonus": { "type": "number" },
+        "pack_radius": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "move": {
+      "type": "object",
+      "required": ["walk", "sprint", "jump"],
+      "properties": {
+        "walk": { "type": "number" },
+        "sprint": { "type": "number" },
+        "jump": { "type": "number" }
+      }
+    }
+  },
+  "additionalProperties": false
+}
