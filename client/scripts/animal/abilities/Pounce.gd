@@ -13,3 +13,4 @@ func cast(owner: Node) -> void:
 	pounce_velocity.y = pounce_lift
 
 	owner.velocity = pounce_velocity
+	# Apply an impulse to the character.
