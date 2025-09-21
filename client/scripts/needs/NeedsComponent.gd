@@ -12,6 +12,7 @@ class_name NeedsComponent
 @export var decay_hunger: float = 0.5 # per second
 @export var decay_energy: float = 0.2
 @export var decay_comfort: float = 0.1
+@export var sprint_energy_multiplier: float = 2.0
 
 
 signal fainted
@@ -19,17 +20,26 @@ signal recovered
 
 
 var fainted_state := false
+var sprinting := false
+
+
+func set_sprinting(is_sprinting: bool) -> void:
+	sprinting = is_sprinting
 
 
 func _process(delta: float) -> void:
-if fainted_state:
-return
-hunger = max(0.0, hunger - decay_hunger * delta)
-energy = max(0.0, energy - decay_energy * delta)
-comfort = max(0.0, comfort - decay_comfort * delta)
+	if fainted_state:
+		return
+	hunger = max(0.0, hunger - decay_hunger * delta)
 
+	var current_decay = decay_energy
+	if sprinting:
+		current_decay *= sprint_energy_multiplier
+	energy = max(0.0, energy - current_decay * delta)
 
-if hunger <= 0.0 or energy <= 0.0 or comfort <= 0.0:
+	comfort = max(0.0, comfort - decay_comfort * delta)
+
+	if hunger <= 0.0 or energy <= 0.0 or comfort <= 0.0:
 fainted_state = true
 fainted.emit()
 get_tree().create_timer(3.0).timeout.connect(_recover)
