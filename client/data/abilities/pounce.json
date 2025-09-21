@@ -1,0 +1,6 @@
+{
+  "id": "pounce",
+  "cooldown": 3,
+  "energy_cost": 5,
+  "effect": "forward_leap_with_small_damage_or_tag"
+}
