@@ -12,6 +12,7 @@ config_version=5
 config/name="Client"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+run/main_scene="res://scenes/Animal.tscn"
 
 [display]
 
