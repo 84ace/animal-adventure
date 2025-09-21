@@ -1,0 +1,8 @@
+{
+  "id": "fox",
+  "abilities": ["pounce","scent_trail","dig_small"],
+  "diet": ["small_prey","berries"],
+  "biomes": ["forest","meadow"],
+  "comfort_rules": {"shelter_bonus": 0.15, "pack_radius": 8},
+  "move": {"walk": 5.5, "sprint": 8.0, "jump": 2.0}
+}
